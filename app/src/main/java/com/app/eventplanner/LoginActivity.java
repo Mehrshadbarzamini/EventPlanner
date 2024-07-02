@@ -1,5 +1,7 @@
 package com.app.eventplanner;
 
+import static com.app.eventplanner.utils.ActivityEnum.MAIN;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -14,6 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.app.eventplanner.utils.ActivityChanger;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -45,10 +51,13 @@ public class LoginActivity extends AppCompatActivity {
                 String password = editTextPassword.getText().toString().trim();
 
                 if (isValid(username, password) && isValidCredentials(username, password)) {
+
                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, SettingsActivity.class);
-                    startActivity(intent);
-                    finish();
+
+                    ArrayList<String> data = new ArrayList<>();
+                    data.add("User data or other information");
+                    ActivityChanger.changeActivity(LoginActivity.this, MAIN, data);
+
                 } else if (!isValid(username, password)) {
                     Toast.makeText(LoginActivity.this, "Regex didn't match", Toast.LENGTH_SHORT).show();
                 } else {

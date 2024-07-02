@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.app.eventplanner.R;
 import com.app.eventplanner.model.Plan;
+import com.app.eventplanner.utils.ActivityEnum;
+import com.app.eventplanner.utils.ActivityChanger;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
@@ -48,16 +51,26 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.delete_plan:
-                                plansList.remove(position);
-                                notifyItemRemoved(position);
-                                return true;
+//                            case R.id.delete_plan:
+//                                plansList.remove(position);
+//                                notifyItemRemoved(position);
+//                                return true;
                             default:
                                 return false;
                         }
                     }
                 });
                 popupMenu.show();
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> data = new ArrayList<>();
+                data.add(plan.getTitle());
+                data.add(plan.getDescription());
+                ActivityChanger.changeActivity(context, ActivityEnum.TASKS, data);
             }
         });
     }
